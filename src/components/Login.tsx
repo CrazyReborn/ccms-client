@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
-import CatImage from '../images/login-cat.jpg';
+import CatImage from '../images/login-cat-1080.jpg';
+import '../styles/Login.css';
 
 export const Login = () => {
   const [firstName, setFirstName] = useState('');
@@ -11,28 +12,24 @@ export const Login = () => {
 
   function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(username);
-    console.log(password);
-    console.log(confirmPassword);
   }
 
   return (
     <div className='login-main'>
-      <img className='login-cat' src={CatImage} alt='a cat on a blue background' />
+      <div className='login-cat-container'>
+        <img className='login-cat' src={CatImage} alt='a cat on a blue background' />
+      </div>
       <section className='login-form-container'>
         <h1>Sign Up</h1>
         <p>Already have an account? Sign In</p>
         <form className='login-form' onSubmit={(e) => onSubmit(e)}>
-          <div id='names'>
+          <div className='names'>
             <label htmlFor='first-name'>
               First name
               <input type='text' id='first-name' onChange={(e) => setFirstName(e.target.value)} />
             </label>
             <label htmlFor='last-name'>
-              Second name
+              Last name
               <input type='text' id='last-name' onChange={(e) => setLastName(e.target.value)} />
             </label>
           </div>
@@ -52,8 +49,13 @@ export const Login = () => {
             Confirm assword
             <input type='password' id='confirm-password' onChange={(e) => setConfirmPassword(e.target.value)} />
           </label>
-          <button type='submit'>Submit</button>
+          <input type='submit' value={'Submit'} />
         </form>
+      <div className='upsplash'>
+      Photo by <a href="https://unsplash.com/@cedric_photography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        Cédric VT </a> on 
+         <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"> Unsplash</a>
+      </div>
       </section>
     </div>
   )

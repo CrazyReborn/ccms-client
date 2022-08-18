@@ -1,0 +1,104 @@
+.login-main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-cat-container {
+  max-width: 50%;
+  height: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.login-cat {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: blue;
+}
+
+.login-form-container {
+  margin: 0;
+  max-width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 6%;
+  padding-right: 3%;
+  flex-grow: 1;
+}
+
+.login-form-container > h1 {
+  font-size: 3rem;
+  margin-bottom: 0;
+  margin-top: 3rem;
+}
+
+.login-form-container > p {
+  font-size: 1.25rem;
+}
+
+.login-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.login-form > .names {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.login-form > .names > label{
+  max-width: 300px;
+}
+
+label {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  font-size: 1.75rem;
+  color: #7C7C7C;
+  font-weight: 400;
+  margin-top: 2rem;
+}
+
+label > input {
+  margin-top: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 1.75rem;
+  border: 1px solid #7C7C7C;
+}
+
+input[type=submit] {
+  margin-top: 2rem;
+  font-size: 2rem;
+  align-self: flex-end;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  background-color: blue;
+  color: white;
+  border-radius: 1rem;
+}
+
+input[type=submit]:hover {
+  cursor: pointer;
+}
+
+input[type=submit].clicked {
+  scale: 0.9;
+}
+
+.upsplash {
+  align-self: flex-start;
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+}
