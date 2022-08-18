@@ -1,40 +1,17 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { SyntheticEvent, useState } from 'react';
 import CatImage from '../images/login-cat-1080.jpg';
-import { store } from '../app/store';
-import { RootState } from '../app/store';
 import '../styles/Login.css';
-import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
 
-export const Login = () => {
+export const SignUp = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
-
-  function sendLogin() {
-    const body = JSON.stringify({username, password});
-    console.log(body);
-    const token = fetch(`${process.env.REACT_APP_SERVER_URL}login`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": 'application/json',
-      },
-      body: body,
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch(changeToken(data.access_token));
-      dispatch(changeFirstName(data.firstName));
-      dispatch(changeOrganization(data.organization));
-      dispatch(changeRole(data.role));
-    })
-    .catch((err) => console.log(err));
-  }
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    sendLogin();
   }
 
   return (
@@ -43,10 +20,23 @@ export const Login = () => {
         <img className='login-cat' src={CatImage} alt='a cat on a blue background' />
       </div>
       <section className='login-form-container'>
-        <h1>Login</h1>
-        <p>Don't have an account yet? Sign Up</p>
-        <p></p>
+        <h1>Sign Up</h1>
+        <p>Already have an account? Sign In</p>
         <form className='login-form' onSubmit={(e) => onSubmit(e)}>
+          <div className='names'>
+            <label htmlFor='first-name'>
+              First name
+              <input type='text' id='first-name' onChange={(e) => setFirstName(e.target.value)} />
+            </label>
+            <label htmlFor='last-name'>
+              Last name
+              <input type='text' id='last-name' onChange={(e) => setLastName(e.target.value)} />
+            </label>
+          </div>
+          <label htmlFor='email'>
+            Email
+            <input type='email' id='email' onChange={(e) => setEmail(e.target.value)} />
+          </label>
           <label htmlFor='username'>
             Username
             <input type='text' id='username' onChange={(e) => setUsername(e.target.value)} />
@@ -54,6 +44,10 @@ export const Login = () => {
           <label htmlFor='password'>
             Password
             <input type='password' id='password' onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <label htmlFor='confirm-password'>
+            Confirm assword
+            <input type='password' id='confirm-password' onChange={(e) => setConfirmPassword(e.target.value)} />
           </label>
           <input type='submit' value={'Submit'} />
         </form>
