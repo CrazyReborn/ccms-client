@@ -7,6 +7,8 @@ import Map from "./Map";
 
 export function Main() {
   return (
-    <p>main</p>
+    <div className='main'>
+      <Map />
+    </div>
   )
 }

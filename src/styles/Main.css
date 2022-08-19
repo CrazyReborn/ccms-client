@@ -1,5 +1,17 @@
 .main-container {
   height: 100%;
   display: flex;
-  
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main > .map-container {
+  align-self: center;
+  width: 80%;
+  height: 30%;
 }
