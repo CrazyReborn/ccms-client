@@ -5,17 +5,19 @@ import { store } from '../app/store';
 import { RootState } from '../app/store';
 import '../styles/Login.css';
 import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user);
 
   function sendLogin() {
     const body = JSON.stringify({username, password});
     console.log(body);
-    const token = fetch(`${process.env.REACT_APP_SERVER_URL}login`, {
+    const token = fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json',
@@ -24,10 +26,11 @@ export const Login = () => {
     })
     .then((res) => res.json())
     .then((data) => {
-      dispatch(changeToken(data.access_token));
+      localStorage.setItem('access_token', data.access_token);
       dispatch(changeFirstName(data.firstName));
       dispatch(changeOrganization(data.organization));
       dispatch(changeRole(data.role));
+      navigate('../main');
     })
     .catch((err) => console.log(err));
   }

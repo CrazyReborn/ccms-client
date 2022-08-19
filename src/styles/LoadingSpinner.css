@@ -1,0 +1,25 @@
+.loading-spinner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 15px solid transparent;
+  border-top-color: blue;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  animation: loading-spinner-active 1s ease infinite;
+}
+
+@keyframes loading-spinner-active {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
