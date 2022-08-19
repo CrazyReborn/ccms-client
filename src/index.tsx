@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { SignUp } from './components/SIgnUp';
 import { Login } from './components/Login';
 import { Main } from './components/Main';
+import Logout from './components/Logout';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -21,6 +22,7 @@ root.render(
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='main' element={<Main />} />
+        <Route path='logout' element={<Logout />} />
       </Routes>
     </BrowserRouter>
   </Provider>

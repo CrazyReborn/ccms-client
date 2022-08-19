@@ -1,8 +1,6 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CatImage from '../images/login-cat-1080.jpg';
-import { store } from '../app/store';
-import { RootState } from '../app/store';
 import '../styles/Login.css';
 import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -12,12 +10,11 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.user);
 
   function sendLogin() {
     const body = JSON.stringify({username, password});
     console.log(body);
-    const token = fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json',

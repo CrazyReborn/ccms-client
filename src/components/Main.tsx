@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../app/store";
 import LoadingSpinner from "./LoadingSpinnner";
+import Navbar from "./Navbar";
+import '../styles/Main.css';
 
 export function Main() {
   const [loaded, setLoaded] = useState(false);
@@ -26,11 +26,25 @@ export function Main() {
     .then((json) => setData(json.id))
     .then(() => setLoaded(true))
     .catch((err) => console.log(err))
+    .finally(() => setLoaded(true))
   }, [data]);
+
+//Mock user and org
+  const user = {
+    firstName: 'Jeff',
+    role: 'Volunteer'
+  }
+
+  const organization = {
+    name: 'FlatBushCats',
+  }
 
   if (loaded) {
     return (
-      <div>{data}</div>
+      <div className='main-container'>
+        <Navbar user={user} organization={organization}/>
+        <p>main conponent</p>
+      </div>
     )
   }
   else {

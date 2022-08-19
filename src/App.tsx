@@ -9,11 +9,9 @@ function App() {
 
   useEffect(() => {
     if (!token) {
-      console.log('no token')
       navigate('./login')
     }
     else {
-      console.log('token')
       navigate('./main')
     }
   });
