@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MainIcon from '../images/icons/home_FILL0_wght400_GRAD0_opsz48.png';
 import TasksIcon from '../images/icons/task_FILL0_wght400_GRAD0_opsz48.png';
 import MembersIcon from '../images/icons/person_FILL0_wght400_GRAD0_opsz48.png';
@@ -25,20 +25,20 @@ export default function Navbar(props: any) {
       <ul className='nav-links'>
         <li>
           <img src={MainIcon} alt='Home icon' />
-          <Link to='../main'>Main</Link>
+          <NavLink to='../main'>Main</NavLink>
         </li>
         <li>
         <img src={TasksIcon} alt='Tasks icon' />
-          <Link to='../tasks'>Tasks</Link>
+          <NavLink to='../tasks'>Tasks</NavLink>
         </li>
         {role === 'OrganizationLeader' &&
         <li>
           <img src={MembersIcon} alt='Members icon' />
-          <Link to='../members'>Memebrs</Link>
+          <NavLink to='../members'>Memebrs</NavLink>
           </li>}
         <li>
           <img src={MapIcon} alt='Map icon' />
-          <Link to='../map'>Map</Link>
+          <NavLink to='../map'>Map</NavLink>
         </li>
       </ul>
       <div className='logout-link-container'>

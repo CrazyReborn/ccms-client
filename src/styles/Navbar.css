@@ -51,6 +51,15 @@
   color: black;
 }
 
+.nav-links > li > a.active::after {
+  display: block;
+  content: '';
+  background-color: blue;
+  width: 100%;
+  height: 2px;
+  animation: active-link-animation ease 0.5s;
+}
+
 .nav-links > li > a:visited {
   color: black;
 }
@@ -77,4 +86,13 @@
 
 p {
   font-weight: 400;
+}
+
+@keyframes active-link-animation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
