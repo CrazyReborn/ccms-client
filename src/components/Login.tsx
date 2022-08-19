@@ -13,7 +13,6 @@ export const Login = () => {
 
   function sendLogin() {
     const body = JSON.stringify({username, password});
-    console.log(body);
     fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
       method: 'POST',
       headers: {
@@ -27,7 +26,7 @@ export const Login = () => {
       dispatch(changeFirstName(data.firstName));
       dispatch(changeOrganization(data.organization));
       dispatch(changeRole(data.role));
-      navigate('../main');
+      navigate('../');
     })
     .catch((err) => console.log(err));
   }

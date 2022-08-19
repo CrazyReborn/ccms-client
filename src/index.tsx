@@ -10,6 +10,7 @@ import { SignUp } from './components/SIgnUp';
 import { Login } from './components/Login';
 import { Main } from './components/Main';
 import Logout from './components/Logout';
+import Map from './components/Map';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -18,10 +19,12 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        <Route path='/' element={<App />}>
+          <Route path='' element={<Main />} />
+          <Route path='map' element={<Map />} />
+        </Route>
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />
-        <Route path='main' element={<Main />} />
         <Route path='logout' element={<Logout />} />
       </Routes>
     </BrowserRouter>

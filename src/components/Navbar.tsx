@@ -25,20 +25,20 @@ export default function Navbar(props: any) {
       <ul className='nav-links'>
         <li>
           <img src={MainIcon} alt='Home icon' />
-          <NavLink to='../main'>Main</NavLink>
+          <NavLink to='/'>Main</NavLink>
         </li>
         <li>
         <img src={TasksIcon} alt='Tasks icon' />
-          <NavLink to='../tasks'>Tasks</NavLink>
+          <NavLink to='./tasks'>Tasks</NavLink>
         </li>
         {role === 'OrganizationLeader' &&
         <li>
           <img src={MembersIcon} alt='Members icon' />
-          <NavLink to='../members'>Memebrs</NavLink>
+          <NavLink to='./members'>Memebrs</NavLink>
           </li>}
         <li>
           <img src={MapIcon} alt='Map icon' />
-          <NavLink to='../map'>Map</NavLink>
+          <NavLink to='./map'>Map</NavLink>
         </li>
       </ul>
       <div className='logout-link-container'>
