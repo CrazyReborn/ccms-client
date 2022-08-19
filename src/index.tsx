@@ -8,6 +8,7 @@ import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { SignUp } from './components/SIgnUp';
 import { Login } from './components/Login';
+import { Main } from './components/Main';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -19,6 +20,7 @@ root.render(
         <Route path='/' element={<App />} />
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />
+        <Route path='main' element={<Main />} />
       </Routes>
     </BrowserRouter>
   </Provider>
