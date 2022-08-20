@@ -1,6 +1,9 @@
 .tasks-main {
   flex-grow: 1;
   max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .tasks-container {

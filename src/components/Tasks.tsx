@@ -1,8 +1,9 @@
 import { format } from 'date-fns';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinnner';
 import '../styles/Tasks.css';
+import TaskDetailed from './TaskDetailed';
 
 export default function Tasks () {
   const [tasks, setTasks] = useState([]);
@@ -10,6 +11,7 @@ export default function Tasks () {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
+  const [activeTask, setActiveTask] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +38,16 @@ export default function Tasks () {
     .then((json) => setTasks(json))
     .catch((err) => setError(err))
     .finally(() => setLoaded(true));
-  }, [loaded])
+  }, [loaded, activeTask])
+
+  function changeFilter(e: React.FormEvent<HTMLInputElement>) {
+    setFilter(e.currentTarget.value.toLowerCase());
+  }
+
+  function setActive(key: string) {
+    const task = tasks.filter((t) => t['_id'] === key);
+    setActiveTask(task[0]);
+  }
 
   if(!loaded) {
     return (
@@ -44,12 +55,9 @@ export default function Tasks () {
     )
   }
 
-  function changeFilter(e: React.FormEvent<HTMLInputElement>) {
-    setFilter(e.currentTarget.value.toLowerCase());
-  }
-
   return (
     <div className='tasks-main'>
+      {/* This is code for the future "Task-Containter". */}
       <div className='tasks-container'>
         <h1>Tasks</h1>
         <div className='search-and-create'>
@@ -62,19 +70,20 @@ export default function Tasks () {
         <ul className='task-list'>
           {tasks.map((task) => {
             let name = '';
-            if(filter == '') {
+            if(filter === '') {
               return (
-                <div key={task['_id']} className='individual-task'>
+                <div key={task['_id']} className='individual-task' onClick={(() => setActive(task['_id']))}>
                   <p>{format(task['date'], 'MMMM do, u')}</p>
                   <p>{task['name']}</p>
                 </div>
               )
             }
             else {
+              
               name = task['name'];
               if(name.toLowerCase().includes(filter)) {
               return (
-                <div key={task['_id']} className='individual-task'>
+                <div key={task['_id']} className='individual-task' onClick={(() => setActive(task['_id']))}>
                   <p>{format(task['date'], 'MMMM do, u')}</p>
                   <p>{task['name']}</p>
                 </div>
@@ -85,6 +94,7 @@ export default function Tasks () {
         </ul>
         }
       </div>
+      <TaskDetailed task={activeTask} />
     </div>
   )
 }

@@ -1,0 +1,18 @@
+.task-detailed {
+  max-width: 35%;
+  padding: 4rem 1rem;
+  margin-left: 5rem;
+  margin-right: auto;
+}
+
+.task-detailed > h1 {
+  margin-bottom: 3rem;
+}
+
+.task-detailed > p {
+  margin-bottom: 3rem;
+}
+
+.task-detailed > section > p {
+  margin-bottom: 3rem;
+}
