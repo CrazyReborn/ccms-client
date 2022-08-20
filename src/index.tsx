@@ -11,6 +11,7 @@ import { Login } from './components/Login';
 import { Main } from './components/Main';
 import Logout from './components/Logout';
 import Map from './components/Map';
+import Tasks from './components/Tasks';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -22,6 +23,7 @@ root.render(
         <Route path='/' element={<App />}>
           <Route path='' element={<Main />} />
           <Route path='map' element={<Map />} />
+          <Route path='tasks' element={<Tasks />} />
         </Route>
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />

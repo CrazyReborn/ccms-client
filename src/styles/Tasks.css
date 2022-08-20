@@ -1,0 +1,53 @@
+.tasks-main {
+  flex-grow: 1;
+  max-height: 100%;
+}
+
+.tasks-container {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  max-height: 99%;
+}
+
+.tasks-container > h1 {
+  margin-top: 6rem;
+  margin-left: 0.5rem;
+}
+
+.search-and-create {
+  display: flex;
+  padding: 0 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-and-create > input[type=submit] {
+  margin-top: 0;
+}
+
+.search-and-create > input[type="search"] {
+  height: fit-content;
+  border-radius: 0.5rem;
+  font-size: 1.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 2.75rem;
+
+  border: 1px solid #7C7C7C;
+  background: url('../images/icons//search_FILL0_wght400_GRAD0_opsz48.png') no-repeat;
+
+}
+
+.task-list {
+  padding-left: 0;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.individual-task {
+  height: 150px;
+  padding-left: 0.5rem;
+  border: 1px solid rgba(235, 235, 235, 0.9);
+  border-right: none;
+  border-left: none;
+  cursor: pointer;
+}

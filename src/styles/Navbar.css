@@ -51,6 +51,14 @@
   color: black;
 }
 
+.nav-links > li > a::after {
+  display: block;
+  content: '';
+  background-color: rgb(245, 245, 245);
+  width: 100%;
+  height: 2px;
+}
+
 .nav-links > li > a.active::after {
   display: block;
   content: '';
