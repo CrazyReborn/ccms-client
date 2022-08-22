@@ -22,9 +22,10 @@ export default function TaskDetailed({ task }: any) {
       <div className='breakline'></div>
       <p className='assigned-to'>
         The task is assigned to 
-        {task['assignedTo'] ? ` ${task['assignedTo']['firstName']}` : ' nobody'}
+        {task['assignedTo'] ?` ${task['assignedTo']['firstName']}` : ' nobody'}
       </p>
       {/* The assign task to a person button should be implemented here*/}
+      {!task['assignedTo'] && <button className='assign-btn'>Assign the task</button>}
     </div>
   )
 } 

@@ -29,12 +29,24 @@
   margin-top: 0;
 }
 
+.assign-btn {
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  align-self: flex-end;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  background-color: blue;
+  color: white;
+  border-radius: 1rem;
+}
+
 .search-and-create > input[type="search"] {
   height: fit-content;
   border-radius: 0.5rem;
   font-size: 1.75rem;
   padding: 0.5rem 0.5rem 0.5rem 2.75rem;
-
   border: 1px solid #7C7C7C;
   background: url('../images/icons//search_FILL0_wght400_GRAD0_opsz48.png') no-repeat;
 

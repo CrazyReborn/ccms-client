@@ -35,7 +35,8 @@ export default function Tasks () {
       }
       return res.json();
     })
-    .then((json) => setTasks(json))
+    .then((json) => json.sort((a: any, b: any) => b['date'] - a['date']))
+    .then((tasks) => setTasks(tasks))
     .catch((err) => setError(err))
     .finally(() => setLoaded(true));
   }, [loaded, activeTask])
@@ -68,22 +69,21 @@ export default function Tasks () {
         <p>No tasks have been created yet</p>
         : 
         <ul className='task-list'>
-          {tasks.map((task) => {
+          {tasks.map((task, index) => {
             let name = '';
             if(filter === '') {
               return (
-                <div key={task['_id']} className='individual-task' onClick={(() => setActive(task['_id']))}>
+                <div key={`${task['_id']}${index}`} className='individual-task' onClick={(() => setActive(task['_id']))}>
                   <p>{format(task['date'], 'MMMM do, u')}</p>
                   <p>{task['name']}</p>
                 </div>
               )
             }
             else {
-              
               name = task['name'];
               if(name.toLowerCase().includes(filter)) {
               return (
-                <div key={task['_id']} className='individual-task' onClick={(() => setActive(task['_id']))}>
+                <div key={`${task['_id']}${index}`} className='individual-task' onClick={(() => setActive(task['_id']))}>
                   <p>{format(task['date'], 'MMMM do, u')}</p>
                   <p>{task['name']}</p>
                 </div>
