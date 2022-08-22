@@ -1,0 +1,65 @@
+.task-form-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background-color: rgba(0, 25, 253, 0.274);
+  justify-content: center;
+  align-items: center;
+}
+
+.task-form {
+  background-color: white;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  min-width: 30%;
+  height: max-content;
+}
+
+.task-form > .controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-form-btn {
+  width: max-content;
+  height: max-content;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.close-form-btn > img {
+  scale: 0.75;
+}
+
+.task-form > label {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.task-form > label > input {
+  font-size: 1.5rem;
+}
+
+.task-form > label > input[type='date'] {
+  width: max-content;
+}
+
+textarea {
+  resize: none;
+  border-radius: 0.5rem;
+}
+
+.task-form > input[type='submit'] {
+  width: 100%;
+}
+
+.task-form > .map-selector {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 300px;
+}

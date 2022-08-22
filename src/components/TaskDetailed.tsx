@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { useEffect } from "react";
 import '../styles/TaskDetailed.css';
 
@@ -15,7 +15,7 @@ export default function TaskDetailed({ task }: any) {
   return (
     <div className='task-detailed'>
       <h1>{task['name']}</h1>
-      <p>{format(task['date'], 'MMMM do, u')}</p>
+      <p>{format(parseISO(task['date']), 'MMMM do, u')}</p>
       <section className='task-description'>
         <p>{task['description']}</p>
       </section>
