@@ -2,7 +2,7 @@ import { format, parseISO } from "date-fns";
 import { useEffect } from "react";
 import '../styles/TaskDetailed.css';
 
-export default function TaskDetailed({ task }: any) {
+export default function TaskDetailed({ task, users }: any) {
   useEffect(() => {
   }, [task])
   if (task['name'] === undefined) {
@@ -25,7 +25,9 @@ export default function TaskDetailed({ task }: any) {
         {task['assignedTo'] ?` ${task['assignedTo']['firstName']}` : ' nobody'}
       </p>
       {/* The assign task to a person button should be implemented here*/}
-      {!task['assignedTo'] && <button className='assign-btn'>Assign the task</button>}
+      {!task['assignedTo'] &&
+        <input type='submot' className='assign-btn' value='Assign the task' />
+      }
     </div>
   )
 } 

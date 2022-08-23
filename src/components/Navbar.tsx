@@ -34,7 +34,7 @@ export default function Navbar(props: any) {
         {role === 'OrganizationLeader' &&
         <li>
           <img src={MembersIcon} alt='Members icon' />
-          <NavLink to='./members'>Memebrs</NavLink>
+          <NavLink to='./members'>Members</NavLink>
           </li>}
         <li>
           <img src={MapIcon} alt='Map icon' />
