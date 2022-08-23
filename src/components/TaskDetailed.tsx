@@ -1,5 +1,6 @@
 import { format, parseISO } from "date-fns";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import '../styles/TaskDetailed.css';
 
 export default function TaskDetailed({ task, users }: any) {
@@ -26,8 +27,21 @@ export default function TaskDetailed({ task, users }: any) {
       </p>
       {/* The assign task to a person button should be implemented here*/}
       {!task['assignedTo'] &&
-        <input type='submot' className='assign-btn' value='Assign the task' />
+        <button className='assign-btn'>Assign the task</button>
       }
+      <div className='map-selector'>
+        <MapContainer center={[52.38592040300254, 16.909362808464977]} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[task['location'][0], task['location'][1],]} >
+              <Popup>
+                Task location
+              </Popup>
+            </Marker>
+        </MapContainer>
+      </div>
     </div>
   )
 } 

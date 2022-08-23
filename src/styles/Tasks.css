@@ -15,7 +15,7 @@
 
 .tasks-container > h1 {
   margin-top: 6rem;
-  margin-left: 0.5rem;
+  margin-left: 2rem;
 }
 
 .search-and-create {
@@ -60,7 +60,7 @@
 
 .individual-task {
   height: 150px;
-  padding-left: 0.5rem;
+  padding-left: 2rem;
   border: 1px solid rgba(235, 235, 235, 0.9);
   border-right: none;
   border-left: none;
