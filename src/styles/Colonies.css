@@ -1,0 +1,36 @@
+.map-component-container {
+  flex-grow: 1;
+  max-height: 100vh;
+}
+
+.loading-spinner {
+  margin-top: 1rem;
+  height: auto  ;
+}
+
+.map-container {
+  width: 100%;
+  height: 40%;
+  margin-top: 15px;
+}
+
+.colonies-cats-containers {
+  display: flex;
+}
+
+.colonies-container-full {
+  width: fit-content;
+}
+
+.colonies-container-full > div.search-and-create {
+  padding: 0;
+}
+
+.colonies-search-and-list > h1, p.no-users {
+  margin-left: 2rem;
+}
+
+.search-and-create > input {
+  font-size: 1.25rem;
+  align-self: center;
+}

@@ -10,8 +10,8 @@ import { SignUp } from './components/SIgnUp';
 import { Login } from './components/Login';
 import { Main } from './components/Main';
 import Logout from './components/Logout';
-import Map from './components/Map';
 import Tasks from './components/Tasks';
+import MapComponent from './components/MapComponent';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -22,7 +22,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route path='' element={<Main />} />
-          <Route path='map' element={<Map />} />
+          <Route path='map' element={<MapComponent />} />
           <Route path='tasks' element={<Tasks />} />
         </Route>
         <Route path='login' element={<Login />} />
