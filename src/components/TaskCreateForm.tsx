@@ -28,9 +28,7 @@ export const TaskCreateForm = (props: any) => {
   const token = localStorage.getItem('access_token');
   const { showCreateTaskForm, setShowCreateTaskForm } = props;
   const setParentLoaded = props.setLoaded;
-  const {users, setUsers} = props;
-  const [loaded, setLoaded] = useState(false);
-  const navigate = useNavigate();
+  const {users} = props;
 
   useEffect(() => {
   }, [showCreateTaskForm])

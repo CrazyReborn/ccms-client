@@ -6,7 +6,6 @@ export default function CatDetailed({ cat }: any) {
       </div>
     )
   }
-  console.log(cat);
   return (
     <div className='cat-detailed'>
       <h1>{cat['name']}</h1>
