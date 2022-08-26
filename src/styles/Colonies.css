@@ -1,6 +1,6 @@
 .map-component-container {
   flex-grow: 1;
-  max-height: 100vh;
+  max-height: 100%;
 }
 
 .loading-spinner {
@@ -20,17 +20,89 @@
 
 .colonies-container-full {
   width: fit-content;
+  max-height: 56vh;
 }
 
 .colonies-container-full > div.search-and-create {
   padding: 0;
 }
 
+.colonies-search-and-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .colonies-search-and-list > h1, p.no-users {
   margin-left: 2rem;
 }
 
-.search-and-create > input {
+.colonies-search-and-list > .search-and-create > input {
   font-size: 1.25rem;
   align-self: center;
+}
+
+.colonies-list {
+  padding-left: 0;
+  overflow-y: auto;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.individual-colony {
+  height: 100px;
+  padding-left: 2rem;
+  border: 1px solid rgba(235, 235, 235, 0.9);
+  border-right: none;
+  border-left: none;
+  cursor: pointer;
+}
+
+.colonies-container-full {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.colony-detailed {
+  width: 20%;
+  margin-left: 2rem;
+  margin-right: auto;
+}
+
+.leaflet-pane.leaflet-map-pane {
+  z-index: 100;
+}
+.leaflet-pane.leaflet-tile-pane {
+  z-index: 50;
+}
+
+.leaflet-pane.leaflet-overlay-pane {
+  z-index: 100;
+}
+
+.leaflet-pane.leaflet-shadow-pane {
+  z-index: 125;
+}
+
+.leaflet-pane.leaflet-tooltip-pane {
+  z-index: 150;
+}
+
+.leaflet-pane.leaflet-popup-pane {
+  z-index: 175;
+}
+
+.checkmark-label {
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+.checkmark-container {
+  display: flex;
+  align-items: center;
+}
+
+.label-radius {
+  margin-top: 2rem !important;
 }

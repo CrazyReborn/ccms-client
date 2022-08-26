@@ -3,7 +3,17 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinnner";
 import CloseIcon from '../images/icons/close_FILL0_wght400_GRAD0_opsz48.png';
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { Circle, MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+
+function TargetLocation({ setLocation }: any) {
+  const map = useMapEvents({
+    click: (e) => {
+      const { lat, lng } = e.latlng;
+      setLocation([lat, lng]);
+    }
+  })
+  return null;
+}
 
 export default function CreateColonyForm(props: any) {
   const { showCreateColonyForm, setShowCreateColonyForm } = props;
@@ -121,9 +131,9 @@ export default function CreateColonyForm(props: any) {
             <legend>Assign caretakers</legend>
               {users.length > 0 ? users.map((user, index) => {
               return (
-                <div>
-                  <input key={`${user['_id']}${index}`} id={user['_id']} type='chechbox' value={user['_id']} onChange={(e) => handleCheck(e)}/>
-                  <label htmlFor={user['_id']}>{user['firstName']} {user['lastName']}</label>
+                <div className='checkmark-container' key={`${user['_id']}${index}`}>
+                  <input id={user['_id']} type='checkbox' value={user['_id']} onChange={(e) => handleCheck(e)}/>
+                  <label className='checkmark-label' htmlFor={user['_id']}>{user['firstName']} {user['lastName']}</label>
                 </div>
               )
             }) : <p className='no-users'>No users in your organization</p>}
@@ -136,10 +146,13 @@ export default function CreateColonyForm(props: any) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[location[0], location[1]]}>
-            </Marker>
+            <Circle center={[location[0], location[1]]} radius={radius}/>
+            <TargetLocation setLocation={setLocation}/>
           </MapContainer>
         </div>
+        <label className='label-radius' htmlFor='radius'>
+          <input id='radius' type='range' min='50' max='300' onChange={(e) => setRadius(+e.target.value)} />
+        </label>
         <input type='submit' value='Submit' />
       </form>
     </div>

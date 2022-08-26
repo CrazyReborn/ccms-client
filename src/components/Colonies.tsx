@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinnner";
 import '../styles/Colonies.css';
 import { useNavigate } from "react-router-dom";
+import ColonyDetailed from "./ColonyDetailed";
+import CreateColonyForm from "./CreateColonyForm";
 
 export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
   const [colonies, setColonies] = useState([]);
@@ -38,7 +40,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
       .finally(() => setLoaded(true));
     }
 
-  }, [loaded]);
+  }, [loaded, showCreateColonyForm]);
 
   function createSectors(data: any[]) {
     const sectors: any[] = [];
@@ -50,7 +52,6 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
       }
       sectors.push(newSector);
     })
-    console.log(sectors);
     setSectors(sectors);
     setSectorsLoaded(true);
   }
@@ -58,11 +59,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
   if(!loaded) return ( <LoadingSpinner /> )
 
   if(mode === 'mini') {
-    return (
-    <div className={`colonies-container-mini`}>
-      this is a mini container
-    </div>
-    )
+    return null;
   }
 
   return (
@@ -81,7 +78,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
             let name = '';
             if(filter === '') {
               return (
-                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony['_id']))}>
+                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony))}>
                   <p>Colonies named "{colony['name']}"</p>
                   <p>Population: {colony['size']}</p>
                 </div>
@@ -91,7 +88,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
               name = colony['name'];
               if(name.toLowerCase().includes(filter)) {
               return (
-                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony['_id']))}>
+                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony))}>
                   <p>Colonies named "{colony['name']}"</p>
                   <p>Population: {colony['size']}</p>
                 </div>
@@ -102,6 +99,12 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
         </ul>
         }
       </div>
+      <ColonyDetailed colony={active} />
+      <CreateColonyForm
+      setShowCreateColonyForm={setShowCreateColonyForm}
+      showCreateColonyForm={showCreateColonyForm}
+      setParentLoaded={setLoaded}
+      />
     </div>
   )
 }

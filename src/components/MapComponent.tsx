@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
-import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+import { Circle, MapContainer, Popup, TileLayer } from "react-leaflet"
 import Colonies from "./Colonies"
-import Map from "./Map";
 
 export default function MapComponent() {
   const [sectors, setSectors] = useState([] as any[])
   const [sectorsLoaded, setSectorsLoaded] = useState(false);
 
   useEffect(() => {
-    console.log(sectorsLoaded)
   }, [sectorsLoaded]);
 
   return (
@@ -21,7 +19,6 @@ export default function MapComponent() {
           />
             {sectorsLoaded &&
             sectors.map((sector, index) => {
-              console.log('circle created')
               return (
                 <Circle key={index + (Math.random() * 10)} center={sector['location']} radius={sector['radius']} >
                   <Popup>Colony {sector['name']}</Popup>

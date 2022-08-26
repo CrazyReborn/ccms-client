@@ -10,13 +10,9 @@ import { useNavigate } from 'react-router-dom';
 function TargetLocation(props: any) {
   const { location, setLocation } = props;
   const map = useMapEvents({
-    load: () => {
-     console.log(map.locate())
-    },
     click: (e) => {
       const { lat, lng } = e.latlng;
       setLocation([lat, lng]);
-      console.log(location)
     },
   })
 
