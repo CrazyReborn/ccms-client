@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import '../styles/TaskDetailed.css';
 
-export default function TaskDetailed({ task }: any) {
+export default function TaskDetailed({ task, setShowAssignTask }: any) {
   useEffect(() => {
   }, [task])
   if (task['name'] === undefined) {
@@ -27,7 +27,7 @@ export default function TaskDetailed({ task }: any) {
       </p>
       {/* The assign task to a person button should be implemented here*/}
       {!task['assignedTo'] &&
-        <button className='assign-btn'>Assign the task</button>
+        <button className='assign-btn' onClick={(e) => setShowAssignTask(true)}>Assign the task</button>
       }
       <div className='map-selector'>
         <MapContainer center={[52.38592040300254, 16.909362808464977]} zoom={13} scrollWheelZoom={false}>

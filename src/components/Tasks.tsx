@@ -5,6 +5,7 @@ import LoadingSpinner from './LoadingSpinnner';
 import '../styles/Tasks.css';
 import TaskDetailed from './TaskDetailed';
 import { TaskCreateForm } from './TaskCreateForm';
+import AssignTask from './AssignTask';
 
 export default function Tasks () {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +13,9 @@ export default function Tasks () {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
+  const [users, setUsers] = useState([]);
   const [activeTask, setActiveTask] = useState({});
+  const [showAssignTask, setShowAssignTask] = useState(false);
   const [showCreateTaskForm, setShowCreateTaskForm] = useState(false);
   const navigate = useNavigate();
 
@@ -34,7 +37,7 @@ export default function Tasks () {
           navigate('../login');
         }
         if (res.status == 403) {
-          throw new Error('You are not allowed to access this data')
+          throw new Error('You are not allowed to access this data');
         }
         return res.json();
       })
@@ -48,7 +51,30 @@ export default function Tasks () {
       .finally(() => setLoaded(true));
     }
 
-  }, [loaded, activeTask])
+  }, [
+    loaded,
+    activeTask,
+    showAssignTask,
+  ])
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      setUsers(json);
+    })
+    .catch((err) => console.log(err))
+    .finally(() => setLoaded(true));
+  });
 
   function changeFilter(e: React.FormEvent<HTMLInputElement>) {
     setFilter(e.currentTarget.value.toLowerCase());
@@ -103,8 +129,20 @@ export default function Tasks () {
         </ul>
         }
       </div>
-      <TaskDetailed task={activeTask} />
-      <TaskCreateForm setLoaded={setLoaded} showCreateTaskForm={showCreateTaskForm} setShowCreateTaskForm={setShowCreateTaskForm}/>
+      <TaskDetailed task={activeTask} setShowAssignTask={setShowAssignTask}/>
+      <TaskCreateForm
+      setLoaded={setLoaded}
+      showCreateTaskForm={showCreateTaskForm}
+      setShowCreateTaskForm={setShowCreateTaskForm}
+      users={users}
+      setUsers={setUsers}
+      />
+      <AssignTask
+      task={activeTask}
+      showAssignTask={showAssignTask}
+      setShowAssignTask={setShowAssignTask}
+      users={users}
+      setUsers={setUsers}/>
     </div>
   )
 }

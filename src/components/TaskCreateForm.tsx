@@ -24,32 +24,15 @@ export const TaskCreateForm = (props: any) => {
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
-  const [users, setUsers] = useState([]);
   const [location, setLocation] = useState([0, 0]);
   const token = localStorage.getItem('access_token');
   const { showCreateTaskForm, setShowCreateTaskForm } = props;
   const setParentLoaded = props.setLoaded;
+  const {users, setUsers} = props;
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!loaded && showCreateTaskForm) {
-      //fetch users for the thing
-      fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => setUsers(json))
-      .catch((err) => console.log(err))
-      .finally(() => setLoaded(true));
-    }
   }, [showCreateTaskForm])
 
   function onSubmit(e: SyntheticEvent) {
@@ -88,7 +71,7 @@ export const TaskCreateForm = (props: any) => {
   }
 
   if(!showCreateTaskForm) return null;
-  if(!loaded && showCreateTaskForm) {
+  if(!showCreateTaskForm) {
     return ReactDOM.createPortal(
       <LoadingSpinner />
       ,
@@ -117,7 +100,7 @@ export const TaskCreateForm = (props: any) => {
             Assign to
             <select id='users' onChange={(e) => setAssignedTo(e.target.value)}>
               <option value={''}>Nobody</option>
-              {users.map((user) => {
+              {users.map((user: any) => {
                 return (
                   <option key={user['_id']} value={user['_id']}>{user['firstName']} {user['lastName']}</option>
                 )

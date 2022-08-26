@@ -66,3 +66,30 @@
   border-left: none;
   cursor: pointer;
 }
+
+.leaflet-pane.leaflet-map-pane {
+  z-index: 100;
+}
+.leaflet-pane.leaflet-tile-pane {
+  z-index: 50;
+}
+
+.leaflet-pane.leaflet-overlay-pane {
+  z-index: 100;
+}
+
+.leaflet-pane.leaflet-shadow-pane {
+  z-index: 125;
+}
+
+.leaflet-pane.leaflet-tooltip-pane {
+  z-index: 150;
+}
+
+.leaflet-pane.leaflet-popup-pane {
+  z-index: 175;
+}
+
+.leaflet-top.leaflet-left {
+  z-index: 200;
+}
