@@ -106,3 +106,12 @@
 .label-radius {
   margin-top: 2rem !important;
 }
+
+.individual-cat {
+  cursor: pointer;
+}
+
+.cat-detailed {
+  margin-left: 1rem;
+  margin-right: auto;
+}

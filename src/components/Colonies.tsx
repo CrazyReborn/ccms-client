@@ -4,6 +4,7 @@ import '../styles/Colonies.css';
 import { useNavigate } from "react-router-dom";
 import ColonyDetailed from "./ColonyDetailed";
 import CreateColonyForm from "./CreateColonyForm";
+import CatDetailed from "./CatDetailed";
 
 export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
   const [colonies, setColonies] = useState([]);
@@ -11,6 +12,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
   const [loaded, setLoaded] = useState(false);
   const [filter, setFilter] = useState('');
   const [active, setActive] =  useState({});
+  const [activeCat, setActiveCat] = useState({});
   const [showCreateColonyForm, setShowCreateColonyForm] = useState(false);
   const navigate = useNavigate();
 
@@ -99,7 +101,8 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
         </ul>
         }
       </div>
-      <ColonyDetailed colony={active} />
+      <ColonyDetailed colony={active} setActiveCat={setActiveCat}/>
+      <CatDetailed cat={activeCat} />
       <CreateColonyForm
       setShowCreateColonyForm={setShowCreateColonyForm}
       showCreateColonyForm={showCreateColonyForm}
