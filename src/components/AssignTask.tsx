@@ -7,9 +7,11 @@ export default function AssignTask({
   showAssignTask,
   setShowAssignTask,
   users,
+  setParentLoaded,
+  setActiveTask,
  }: any) {
   const [user, setUser] = useState('');
-  const token = localStorage.getItem('acces_token');
+  const token = localStorage.getItem('access_token');
 
   useEffect(() => {
   }, [users, showAssignTask, task]);
@@ -19,6 +21,7 @@ export default function AssignTask({
     e.preventDefault();
     assignToANewUser();
     setShowAssignTask(false);
+    setParentLoaded(false);
   }
 
   function assignToANewUser() {
@@ -26,7 +29,7 @@ export default function AssignTask({
       ...task,
       assignedTo: user,
     };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/tasks/${user}`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/tasks/${task['_id']}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -37,9 +40,10 @@ export default function AssignTask({
     })
     .then((res) => {
       if (res.status === 200) {
-        return true;
+        return res.json();
       }
     })
+    .then((task) => setActiveTask(task))
     .catch((err) => console.log(err));
   }
 

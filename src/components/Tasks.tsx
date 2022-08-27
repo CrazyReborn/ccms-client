@@ -142,7 +142,9 @@ export default function Tasks () {
       showAssignTask={showAssignTask}
       setShowAssignTask={setShowAssignTask}
       users={users}
-      setUsers={setUsers}/>
+      setUsers={setUsers}
+      setParentLoaded={setLoaded}
+      setActiveTask={setActiveTask}/>
     </div>
   )
 }

@@ -31,11 +31,11 @@ export default function Navbar(props: any) {
         <img src={TasksIcon} alt='Tasks icon' />
           <NavLink to='./tasks'>Tasks</NavLink>
         </li>
-        {role === 'OrganizationLeader' &&
+        {/* {role === 'OrganizationLeader' &&
         <li>
           <img src={MembersIcon} alt='Members icon' />
           <NavLink to='./members'>Members</NavLink>
-          </li>}
+        </li>} */}
         <li>
           <img src={MapIcon} alt='Map icon' />
           <NavLink to='./map'>Map</NavLink>

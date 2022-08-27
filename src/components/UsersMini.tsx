@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinnner";
 import '../styles/UsersMini.css';
 
+export function userTasksForToday(user: any, tasks: any[]) {
+  const foundTasks: any[] = tasks.filter((task: any) => {
+    return task['assignedTo'] !== null && task['assignedTo']['_id'] === user['_id'] &&
+    format(parseISO(task['date']), 'dd/mm/yy') === format(new Date(), 'dd/mm/yy');
+  });
+  return foundTasks.length;
+}
+
 export default function UsersMini() {
   const [users, setUsers] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -44,13 +52,6 @@ export default function UsersMini() {
     .finally(() => setLoaded(true));
   }, [loaded]);
 
-  function userTasksForToday(user: any) {
-    const foundTasks: any[] = tasks.filter((task: any) => {
-      return task['assignedTo'] !== null && task['assignedTo']['_id'] === user['_id'] &&
-      format(parseISO(task['date']), 'dd/mm/yy') === format(new Date(), 'dd/mm/yy');
-    });
-    return foundTasks.length;
-  }
 
   if (!loaded) {
     return (
@@ -64,7 +65,7 @@ export default function UsersMini() {
     <div className='users-mini-container'>
       <h2>Members of your organization</h2>
       {users.map((user: any, index) => {
-        const numberOfTasks = userTasksForToday(user);
+        const numberOfTasks = userTasksForToday(user, tasks);
         return (
           <div key={`${user['_id']}${index}`} className='user-mini'>
             <p>{user['firstName']} {user['lastName']}</p>
