@@ -1,7 +1,8 @@
 import { format } from "date-fns";
 import { useState } from "react";
+import { userTasksForToday } from "../UsersMini";
 
-export default function MembersSearchList({ members }: any) {
+export default function MembersSearchList({ members, setActive }: any) {
   const [filter, setFilter] = useState('');
 
   return (
@@ -16,9 +17,9 @@ export default function MembersSearchList({ members }: any) {
         :
         members.map((member: any, index: number) => {
           return (
-            <div key={`${member['_id']}${index}`} className='individual-member'>
-              <
-          </div>
+            <div key={`${member['_id']}${index}`} className='individual-member' onClick={() => setActive(member)}>
+              <p>{member['firstName']} {member['lastName']}</p>
+            </div>
           )
         })
 

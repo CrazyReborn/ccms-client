@@ -129,7 +129,13 @@ export default function Tasks () {
         </ul>
         }
       </div>
-      <TaskDetailed task={activeTask} setShowAssignTask={setShowAssignTask}/>
+      <TaskDetailed 
+      task={activeTask}
+      setShowAssignTask={setShowAssignTask}
+      token={token}
+      setParentLoaded={setLoaded}
+      setActiveTask={setActiveTask}
+      />
       <TaskCreateForm
       setLoaded={setLoaded}
       showCreateTaskForm={showCreateTaskForm}
@@ -144,7 +150,8 @@ export default function Tasks () {
       users={users}
       setUsers={setUsers}
       setParentLoaded={setLoaded}
-      setActiveTask={setActiveTask}/>
+      setActiveTask={setActiveTask}
+      />
     </div>
   )
 }

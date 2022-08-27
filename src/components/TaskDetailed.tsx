@@ -1,9 +1,15 @@
 import { format, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import '../styles/TaskDetailed.css';
 
-export default function TaskDetailed({ task, setShowAssignTask }: any) {
+export default function TaskDetailed({
+  task,
+  setShowAssignTask,
+  token,
+  setParentLoaded,
+  setActiveTask,
+}: any) {
   useEffect(() => {
   }, [task])
   if (task['name'] === undefined) {
@@ -12,6 +18,23 @@ export default function TaskDetailed({ task, setShowAssignTask }: any) {
         <p>Select a task to show details</p>
       </div>
     )
+  }
+
+  function deleteTask(id: string) {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/tasks/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        setActiveTask({});
+        setParentLoaded(false);
+      }
+    })
   }
   return (
     <div className='task-detailed'>
@@ -42,6 +65,7 @@ export default function TaskDetailed({ task, setShowAssignTask }: any) {
             </Marker>
         </MapContainer>
       </div>
+      <button className='delete-btn' onClick={() => deleteTask(task['_id'])}>Delete</button>
     </div>
   )
 } 

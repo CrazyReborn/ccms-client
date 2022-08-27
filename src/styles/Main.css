@@ -22,3 +22,16 @@
   padding-top: 6rem;
   justify-content: space-around;
 }
+
+.delete-btn {
+  margin-top: 2rem;
+  font-size: 2rem;
+  align-self: flex-end;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(255, 0, 21);
+  color: white;
+  border-radius: 1rem;
+  cursor: pointer;
+}
