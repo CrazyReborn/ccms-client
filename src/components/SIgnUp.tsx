@@ -1,4 +1,5 @@
 import React, { SyntheticEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 
@@ -21,7 +22,7 @@ export const SignUp = () => {
       </div>
       <section className='login-form-container'>
         <h1>Sign Up</h1>
-        <p>Already have an account? Sign In</p>
+        <p>Already have an account? <Link className='link-general' to='/login'>Login</Link></p>
         <form className='login-form' onSubmit={(e) => onSubmit(e)}>
           <div className='names'>
             <label htmlFor='first-name'>

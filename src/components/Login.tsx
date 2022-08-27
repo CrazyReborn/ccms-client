@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [username, setUsername] = useState('');
@@ -44,7 +44,7 @@ export const Login = () => {
       </div>
       <section className='login-form-container'>
         <h1>Login</h1>
-        <p>Don't have an account yet? Sign Up</p>
+        <p>Don't have an account yet? <Link className='link-general' to='/signup'>Sign Up</Link></p>
         <p></p>
         <form className='login-form' onSubmit={(e) => onSubmit(e)}>
           <label htmlFor='username'>

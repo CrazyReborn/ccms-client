@@ -102,3 +102,11 @@ input[type=submit].clicked {
   font-size: 12px;
   margin-bottom: 0.5rem;
 }
+
+.link-general {
+  text-decoration: none;
+}
+
+.link-general:visited {
+  color: blue;
+}
