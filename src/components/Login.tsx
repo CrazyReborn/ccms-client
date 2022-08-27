@@ -26,6 +26,8 @@ export const Login = () => {
       dispatch(changeFirstName(data.firstName));
       dispatch(changeOrganization(data.organization));
       localStorage.setItem('orgId', data.organization);
+      localStorage.setItem('firstName', data.firstName);
+      localStorage.setItem('role', data.role);
       dispatch(changeRole(data.role));
       navigate('../');
     })

@@ -9,10 +9,31 @@ export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [role, setRole] = useState('Caretaker');
+  const [org, setOrg] = useState('630a2e1e45b5bbcbaf79ef9c');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const token = localStorage.getItem('access_token');
 
   function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
+    const body = {
+      firstName,
+      lastName,
+      username,
+      password,
+      confirmPassword,
+      role,
+    }
+    fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    })
   }
 
   return (

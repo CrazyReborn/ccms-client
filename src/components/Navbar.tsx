@@ -6,19 +6,48 @@ import MembersIcon from '../images/icons/person_FILL0_wght400_GRAD0_opsz48.png';
 import MapIcon from '../images/icons/pin_drop_FILL0_wght400_GRAD0_opsz48.png';
 import LogoutIcon from '../images/icons/logout_FILL0_wght400_GRAD0_opsz48.png';
 import '../styles/Navbar.css';
+import { useEffect, useState } from "react";
 
 export default function Navbar(props: any) {
-  const { user, organization } = props;
-  const { firstName, role } = user;
-  const { name } = organization;
+  const firstName = localStorage.getItem('firstName');
+  const orgId = localStorage.getItem('orgId');
+  const role = localStorage.getItem('role');
+  const token = localStorage.getItem('access_token');
+  const [org, setOrg] = useState({
+    _id: '',
+    name: '',
+    owner: '',
+    members: [],
+  });
   const date = Date.now();
+
+  useEffect(() => {
+    fetchOrgInfo(orgId!);
+  }, [org])
+
+  function fetchOrgInfo(orgId: string) {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/organizations/${orgId}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        return res.json();
+      }
+    })
+    .then((data) => setOrg(data))
+    .catch((err) => console.log(err));
+  }
   return (
     <nav className='navbar'>
       <div className='upper-container'>
         <h1>
           Greetings, <br/>{firstName}.
         </h1>
-        <p>{role} for <br/>{name}</p>
+        <p>{role} for <br/>{org['name'] === '' ? 'unknown': org['name'] }</p>
         <p>{format(date, 'MMMM do, u')}<br/> {format(date, 'EEEE')}</p>
       </div>
       <div className='breakline'></div>
