@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 
@@ -10,9 +10,11 @@ export const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // NOT DIMANIC, CHANGE LATER
   const [role, setRole] = useState('Caretaker');
   const [org, setOrg] = useState('630a2e1e45b5bbcbaf79ef9c');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const token = localStorage.getItem('access_token');
 
@@ -25,6 +27,7 @@ export const SignUp = () => {
       password,
       confirmPassword,
       role,
+      organization: org,
     }
     fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
       method: 'POST',
@@ -32,8 +35,15 @@ export const SignUp = () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    })
+    .then((res) => {
+      if (res.status === 201) {
+        navigate('../login');
       }
     })
+    .catch((err) => console.log(err));
   }
 
   return (
