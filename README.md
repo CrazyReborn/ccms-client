@@ -1,3 +1,14 @@
+# Cat Colony Management System (CCMS) Client
+
+This is client for CCMS app. You can find server code [here](https://github.com/CrazyReborn/ccms).
+
+# Required env
+
+For the app to function you will need server code and a .env file with a variable named REACT_APP_SERVER_URL with the value of you server's url.
+
+# The text below the breakpoint was generated automatically by create react app.
+<br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
