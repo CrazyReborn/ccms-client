@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Circle, MapContainer, Popup, TileLayer, useMapEvent } from "react-leaflet"
 import Colonies from "./Colonies";
+import LoadingSpinner from "./LoadingSpinnner";
 
 function FlyToCircle({ activeSector }: any) {
   const map = useMapEvent('click', () => {
@@ -18,7 +19,7 @@ export default function MapComponent() {
   useEffect(() => {
     document.getElementById('map123map')?.click();
   }, [sectorsLoaded, activeSector]);
-
+  
   return (
     <div className='map-component-container'>
       <div className='map-container'>

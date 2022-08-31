@@ -16,7 +16,10 @@ function TargetLocation({ setLocation }: any) {
 }
 
 export default function CreateColonyForm(props: any) {
-  const { showCreateColonyForm, setShowCreateColonyForm } = props;
+  const { 
+    showCreateColonyForm,
+    setShowCreateColonyForm,
+    setParentLoaded } = props;
   
   const [name, setName] = useState('');
   const [size, setSize] = useState(0);
@@ -27,7 +30,6 @@ export default function CreateColonyForm(props: any) {
   const [users, setUsers] = useState([]);
 
   const token = localStorage.getItem('access_token');
-  const setParentLoaded = props.setLoaded;
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
@@ -57,6 +59,7 @@ export default function CreateColonyForm(props: any) {
       throw new Error('Wrong location');
     }
     sendForm();
+    setParentLoaded(false);
   }
 
   function sendForm() {

@@ -47,7 +47,6 @@ export default function Colonies ({
       .catch((err) => console.log(err))
       .finally(() => setLoaded(true));
     }
-
   }, [loaded, showCreateColonyForm]);
 
   function createSectors(data: any[]) {
