@@ -81,6 +81,7 @@ export default function Tasks () {
   }
 
   function setActive(key: string) {
+    setActiveTask({});
     const task = tasks.filter((t) => t['_id'] === key);
     setActiveTask(task[0]);
   }

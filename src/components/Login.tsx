@@ -20,7 +20,12 @@ export const Login = () => {
       },
       body: body,
     })
-    .then((res) => res.json())
+    .then((res) => {
+    if(res.status === 401) {
+      throw new Error ('Wrong password or username');
+    }
+    return res.json();
+    })
     .then((data) => {
       localStorage.setItem('access_token', data.access_token);
       dispatch(changeFirstName(data.firstName));

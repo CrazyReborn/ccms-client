@@ -1,7 +1,19 @@
 import { format, parseISO } from "date-fns";
-import { useEffect } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMapEvent } from 'react-leaflet';
 import '../styles/TaskDetailed.css';
+
+function UpdateMap({ location }: any) {
+  const coords = {
+    lat: location[0],
+    lng: location[1],
+  };
+  const map = useMapEvent('click', () => {
+    console.log('update?');
+    map.flyTo(coords, 13)
+  })
+  return null;
+}
 
 export default function TaskDetailed({
   task,
@@ -11,7 +23,9 @@ export default function TaskDetailed({
   setActiveTask,
 }: any) {
   useEffect(() => {
-  }, [task])
+    document.getElementById('map123map')?.click();
+  }, [task]);
+
   if (task['name'] === undefined) {
     return (
       <div className='task-detailed'>
@@ -53,7 +67,7 @@ export default function TaskDetailed({
         <button className='assign-btn' onClick={(e) => setShowAssignTask(true)}>Assign the task</button>
       }
       <div className='map-selector'>
-        <MapContainer center={[52.38592040300254, 16.909362808464977]} zoom={13} scrollWheelZoom={false}>
+        <MapContainer id='map123map' center={[task['location'][0], task['location'][1]]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -63,6 +77,7 @@ export default function TaskDetailed({
                 Task location
               </Popup>
             </Marker>
+            <UpdateMap location={[task['location'][0], task['location'][1]]} />
         </MapContainer>
       </div>
       <button className='delete-btn' onClick={() => deleteTask(task['_id'])}>Delete</button>

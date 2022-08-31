@@ -6,7 +6,13 @@ import ColonyDetailed from "./ColonyDetailed";
 import CreateColonyForm from "./CreateColonyForm";
 import CatDetailed from "./CatDetailed";
 
-export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
+export default function Colonies ({
+  mode,
+  setSectors,
+  setSectorsLoaded,
+  activeSector,
+  setActiveSector,
+  }: any) {
   const [colonies, setColonies] = useState([]);
   const token = localStorage.getItem('access_token');
   const [loaded, setLoaded] = useState(false);
@@ -64,6 +70,17 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
     return null;
   }
 
+  function chooseColony(colony: any) {
+    setActive({})
+    const sector = {
+      name: colony['name'],
+      location: colony['location'],
+      radius: colony['radius'],
+    };
+    setActiveSector(sector);
+    setActive(colony);
+  }
+
   return (
     <div className={`colonies-container-full`}>
       <div className='colonies-search-and-list'>
@@ -80,7 +97,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
             let name = '';
             if(filter === '') {
               return (
-                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony))}>
+                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => chooseColony(colony))}>
                   <p>Colonies named "{colony['name']}"</p>
                   <p>Population: {colony['size']}</p>
                 </div>
@@ -90,7 +107,7 @@ export default function Colonies ({ mode, setSectors, setSectorsLoaded }: any) {
               name = colony['name'];
               if(name.toLowerCase().includes(filter)) {
               return (
-                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => setActive(colony))}>
+                <div key={`${colony['_id']}${index}`} className='individual-colony' onClick={(() => chooseColony(colony))}>
                   <p>Colonies named "{colony['name']}"</p>
                   <p>Population: {colony['size']}</p>
                 </div>
