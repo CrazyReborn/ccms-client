@@ -1,6 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from "react"
 import CloseIcon from '../images/icons/close_FILL0_wght400_GRAD0_opsz48.png';
 import ReactDOM from "react-dom"
+import { useAppSelector } from "../app/hooks";
 
 export default function AssignTask({ 
   task,
@@ -11,7 +12,7 @@ export default function AssignTask({
   setActiveTask,
  }: any) {
   const [user, setUser] = useState('');
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
 
   useEffect(() => {
   }, [users, showAssignTask, task]);

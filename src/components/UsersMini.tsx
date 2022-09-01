@@ -2,6 +2,7 @@ import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "./LoadingSpinnner";
 import '../styles/UsersMini.css';
+import { useAppSelector } from "../app/hooks";
 
 export function userTasksForToday(user: any, tasks: any[]) {
   const foundTasks: any[] = tasks.filter((task: any) => {
@@ -15,7 +16,7 @@ export default function UsersMini() {
   const [users, setUsers] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {

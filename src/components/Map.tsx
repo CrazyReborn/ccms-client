@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Circle, MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 import LoadingSpinner from './LoadingSpinnner';
 
 export default function Map() {
@@ -8,7 +9,7 @@ export default function Map() {
   const [sectors, setSectors] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
 
   if(!loaded) {
     fetch(`${process.env.REACT_APP_SERVER_URL}/colonies`, {

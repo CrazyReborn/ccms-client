@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ColonyDetailed from "./ColonyDetailed";
 import CreateColonyForm from "./CreateColonyForm";
 import CatDetailed from "./CatDetailed";
+import { useAppSelector } from "../app/hooks";
 
 export default function Colonies ({
   mode,
@@ -14,7 +15,7 @@ export default function Colonies ({
   setActiveSector,
   }: any) {
   const [colonies, setColonies] = useState([]);
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
   const [loaded, setLoaded] = useState(false);
   const [filter, setFilter] = useState('');
   const [active, setActive] =  useState({});

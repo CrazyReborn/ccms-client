@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinnner";
 import CloseIcon from '../images/icons/close_FILL0_wght400_GRAD0_opsz48.png';
 import { Circle, MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { useAppSelector } from "../app/hooks";
 
 function TargetLocation({ setLocation }: any) {
   const map = useMapEvents({
@@ -29,7 +30,7 @@ export default function CreateColonyForm(props: any) {
 
   const [users, setUsers] = useState([]);
 
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 

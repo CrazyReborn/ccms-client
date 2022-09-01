@@ -7,12 +7,11 @@ import MapIcon from '../images/icons/pin_drop_FILL0_wght400_GRAD0_opsz48.png';
 import LogoutIcon from '../images/icons/logout_FILL0_wght400_GRAD0_opsz48.png';
 import '../styles/Navbar.css';
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../app/hooks";
 
 export default function Navbar(props: any) {
-  const firstName = localStorage.getItem('firstName');
-  const orgId = localStorage.getItem('orgId');
-  const role = localStorage.getItem('role');
-  const token = localStorage.getItem('access_token');
+  const { token, firstName, role } = useAppSelector((state) => state.user);
+  const orgId = useAppSelector((state) => state.user.organization);
   const [org, setOrg] = useState({
     _id: '',
     name: '',

@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinnner";
 import '../styles/ColoniesMini.css';
+import { useAppSelector } from "../app/hooks";
 
 export default function ColoniesMini() {
   const [colonies, setColonies] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {

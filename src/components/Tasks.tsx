@@ -6,10 +6,11 @@ import '../styles/Tasks.css';
 import TaskDetailed from './TaskDetailed';
 import { TaskCreateForm } from './TaskCreateForm';
 import AssignTask from './AssignTask';
+import { useAppSelector } from '../app/hooks';
 
 export default function Tasks () {
   const [tasks, setTasks] = useState([]);
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');

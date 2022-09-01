@@ -12,6 +12,7 @@
   width: 100%;
   height: 40%;
   margin-top: 15px;
+  border-bottom: 4px solid blue;
 }
 
 .colonies-cats-containers {

@@ -9,7 +9,6 @@ function UpdateMap({ location }: any) {
     lng: location[1],
   };
   const map = useMapEvent('click', () => {
-    console.log('update?');
     map.flyTo(coords, 13)
   })
   return null;

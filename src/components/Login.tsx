@@ -27,13 +27,11 @@ export const Login = () => {
     return res.json();
     })
     .then((data) => {
-      localStorage.setItem('access_token', data.access_token);
+      dispatch(changeToken(data.access_token));
       dispatch(changeFirstName(data.firstName));
       dispatch(changeOrganization(data.organization));
-      localStorage.setItem('orgId', data.organization);
-      localStorage.setItem('firstName', data.firstName);
-      localStorage.setItem('role', data.role);
       dispatch(changeRole(data.role));
+      
       navigate('../');
     })
     .catch((err) => console.log(err));

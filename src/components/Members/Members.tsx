@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../app/hooks";
 import LoadingSpinner from "../LoadingSpinnner";
 import MembersSearchList from "./MembersSearchList";
 
@@ -6,7 +7,7 @@ export default function Members() {
   const [members, setMembers] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [activeMember, setActiveMember] = useState({});
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {

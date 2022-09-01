@@ -6,6 +6,7 @@ import '../styles/TaskCreateForm.css';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvent, useMapEvents } from 'react-leaflet';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 
 function TargetLocation(props: any) {
   const { location, setLocation } = props;
@@ -25,7 +26,7 @@ export const TaskCreateForm = (props: any) => {
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
   const [location, setLocation] = useState([0, 0]);
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
   const { showCreateTaskForm, setShowCreateTaskForm } = props;
   const setParentLoaded = props.setLoaded;
   const {users} = props;

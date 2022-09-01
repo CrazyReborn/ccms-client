@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 
@@ -16,7 +17,7 @@ export const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('access_token');
+  const { token } = useAppSelector((state) => state.user);
 
   function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
