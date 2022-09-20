@@ -4,16 +4,17 @@ import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 
 export const Login = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function sendLogin() {
+  async function sendLogin() {
     const body = JSON.stringify({username, password});
-    fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+    return fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json',
@@ -31,15 +32,14 @@ export const Login = () => {
       dispatch(changeFirstName(data.firstName));
       dispatch(changeOrganization(data.organization));
       dispatch(changeRole(data.role));
-      
       navigate('../');
     })
     .catch((err) => console.log(err));
   }
 
-  function onSubmit(e: SyntheticEvent) {
+  async function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    sendLogin();
+    await sendLogin();
   }
 
   return (
