@@ -190,7 +190,7 @@ export const SignUp = () => {
             </label>
             :
             <label htmlFor='org-id'>
-              ID of the organization provided by the leader:
+              ID of the organization(use '630a2e1e45b5bbcbaf79ef9c' for demo):
               <input type='text' id='org-id' onChange={(e) => setOrgId(e.target.value)} />
             </label>
             }
