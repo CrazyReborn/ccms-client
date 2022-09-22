@@ -1,16 +1,21 @@
+import { response } from 'express';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
+import { changeFirstName, changeOrganization, changeRole, changeToken } from '../features/userSlice';
 import CatImage from '../images/login-cat-1080.jpg';
 import '../styles/Login.css';
 
 enum Mode {
-  MEMBER = 'member',
-  LEADER = 'leader',
+  CARETAKER = 'Caretaker',
+  LEADER = 'OrganizationLeader',
 }
 
 export const SignUp = () => {
-  const [mode, setMode] = useState<Mode>(Mode.MEMBER);
+  const [mode, setMode] = useState<Mode>(Mode.CARETAKER);
+
+  //user data
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,71 +24,100 @@ export const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [ownerId, setOwnerId] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [token, setToken] = useState('');
+
+  //organization data
 
 
   const [orgName, setOrgName] = useState('');
 
   const [loaded, setLoaded] = useState(false);
-  const { token, organization } = useAppSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { organization } = useAppSelector((state) => state.user);
 
   // NOT DIMANIC, CHANGE LATER
   const [org, setOrg] = useState('630a2e1e45b5bbcbaf79ef9c');
   const navigate = useNavigate();
 
-  function createUser() {
+  async function createUser() {
+    const organizationId = orgId === '' ? undefined : orgId;
     const body = {
       firstName,
       lastName,
       username,
       password,
       confirmPassword,
-      organization: orgId,
-      role: 'Caretaker',
+      organization: organizationId,
+      role: mode,
     }
-    fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-    })
-    .then((res) => {
-      if (res.status === 201) {
+    });
+    if(response.status === 201) {
+      if(mode === Mode.CARETAKER) {
         navigate('../login');
       }
-    })
-    .catch((err) => console.log(err));
+    }
+    return response.json();
   }
 
+  async function sendLogin() {
+    const body = JSON.stringify({username, password});
+    try {
+      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json',
+        },
+        body: body,
+      });
+      if (res.status === 401) {
+        throw new Error('Wrong password or username');
+      }
+      const data = await res.json();
 
-  async function createOrg() {
+      dispatch(changeToken(data.access_token));
+      dispatch(changeFirstName(data.firstName));
+      dispatch(changeOrganization(data.organization));
+      dispatch(changeRole(data.role));
+      setToken(data.access_token);
+      return data.access_token;
+    } catch (err) {
+      return console.log(err);
+    }
+  }
+
+  async function createOrg(accessToken: string, id: string) {
     const body = {
       name: orgName,
-      owner: ownerId,
+      owner: id,
       members: [],
-    }
-    fetch(`${process.env.REACT_APP_SERVER_URL}/organizations`, {
+    };
+    console.log(accessToken);
+    console.log(body);
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/organizations`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify(body)
-    })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => setOrgId(data._id))
+    });
+   return response.json();
   }
 
-  async function updateOwnerWithOrg() {
+  async function updateOwnerWithOrg(id: string, newOrgId: string) {
     const body = {
-      organization: orgId,
+      organization: newOrgId,
     };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/users/${ownerId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/users/${id}`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -94,7 +128,7 @@ export const SignUp = () => {
     })
     .then((res) => {
     if (res.status === 200) {
-      navigate('../')
+      navigate('../login')
     }
     else {
       throw new Error(`Errors status: ${res.status}`)
@@ -102,9 +136,19 @@ export const SignUp = () => {
     })
   }
 
-  function onSubmit(e: SyntheticEvent) {
+  async function onSubmitMember(e: SyntheticEvent) {
     e.preventDefault();
-    createUser();
+    await createUser();
+  }
+
+  async function onSubmitLeader(e: SyntheticEvent) {
+    e.preventDefault();
+    const data = await createUser();
+    setOwnerId(await data._id);
+    const newToken = await sendLogin();
+    const newOrg = await createOrg(newToken, data._id);
+    setOrgId(newOrg._id);
+    await updateOwnerWithOrg(data._id, newOrg._id);
   }
 
   return (
@@ -115,9 +159,12 @@ export const SignUp = () => {
       <section className='login-form-container'>
         <h1>Sign Up</h1>
         <p>Already have an account? <Link className='link-general' to='/login'>Login</Link></p>
-        {
-        mode === Mode.MEMBER &&
-        <form className='login-form' onSubmit={(e) => onSubmit(e)}>
+        {mode === Mode.CARETAKER ? 
+        <button onClick={() => setMode(Mode.LEADER)}>I am a leader</button>
+        :
+        <button onClick={() => setMode(Mode.CARETAKER)}>I am a caretaker</button>
+      }
+        <form className='login-form' onSubmit={(e) => mode === Mode.CARETAKER? onSubmitMember(e) : onSubmitLeader(e)}>
           <div className='names'>
             <label htmlFor='first-name'>
               First name
@@ -128,10 +175,6 @@ export const SignUp = () => {
               <input type='text' id='last-name' onChange={(e) => setLastName(e.target.value)} />
             </label>
           </div>
-          <label htmlFor='org-id'>
-              ID of the organization provided by the leader:
-              <input type='text' id='org-id' onChange={(e) => setOrgId(e.target.value)} />
-            </label>
           <label htmlFor='email'>
             Email
             <input type='email' id='email' onChange={(e) => setEmail(e.target.value)} />
@@ -140,6 +183,17 @@ export const SignUp = () => {
             Username
             <input type='text' id='username' onChange={(e) => setUsername(e.target.value)} />
           </label>
+          {mode === Mode.LEADER ?
+            <label htmlFor='org-name'>
+              Name for your organization
+              <input type='text' id='org-name' onChange={(e) => setOrgName(e.target.value)} />
+            </label>
+            :
+            <label htmlFor='org-id'>
+              ID of the organization provided by the leader:
+              <input type='text' id='org-id' onChange={(e) => setOrgId(e.target.value)} />
+            </label>
+            }
           <label htmlFor='password'>
             Password
             <input type='password' id='password' onChange={(e) => setPassword(e.target.value)} />
@@ -150,12 +204,6 @@ export const SignUp = () => {
           </label>
           <input type='submit' value={'Submit'} />
         </form>
-        }
-        {
-        mode == Mode.LEADER &&
-        <div className='leader-containers'>
-        </div>
-        }
       <div className='upsplash'>
       Photo by <a href="https://unsplash.com/@cedric_photography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
         Cédric VT </a> on 

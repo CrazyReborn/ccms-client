@@ -64,21 +64,22 @@ label {
   display: flex;
   width: 100%;
   flex-direction: column;
-  font-size: 1.75rem;
+  font-size: 22px;
   color: #7C7C7C;
   font-weight: 400;
   margin-top: 2rem;
 }
 
 label > input {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   border-radius: 0.5rem;
-  font-size: 1.75rem;
+  font-size: 22px;
   border: 1px solid #7C7C7C;
 }
 
 input[type=submit] {
-  margin-top: 2rem;
+  margin-top: auto;
+  margin-bottom: 2rem;
   font-size: 2rem;
   align-self: flex-end;
   outline: none;
@@ -109,4 +110,8 @@ input[type=submit].clicked {
 
 .link-general:visited {
   color: blue;
+}
+
+button {
+  cursor: pointer
 }
