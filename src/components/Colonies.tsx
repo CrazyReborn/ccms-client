@@ -33,6 +33,7 @@ export default function Colonies ({
         }
       })
       .then((res) => {
+        console.log(res.status)
         if (res.status === 401) {
           return navigate('../login')
         }
