@@ -46,7 +46,9 @@ export default function ColoniesMini() {
   return (
     <div className='colonies-mini-container'>
       <h2>Cat colonies</h2>
-      {colonies.map((colony: any , index) => {
+      {colonies.length === 0 ?
+      <p>No colonies have been added yet</p>
+      : colonies.map((colony: any , index) => {
         return (
           <div key={`${colony['_id']}${index}`} className='colony-mini'>
             <p>{colony['name']}</p>

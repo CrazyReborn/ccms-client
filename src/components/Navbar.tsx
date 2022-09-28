@@ -57,7 +57,7 @@ export default function Navbar(props: any) {
         </li>
         <li>
         <img src={TasksIcon} alt='Tasks icon' />
-          <NavLink to='./tasks'>Tasks</NavLink>
+          <NavLink to='./tasks'>{ role === 'Caretaker' ? 'Your tasks' : 'Tasks' }</NavLink>
         </li>
         {/* {role === 'OrganizationLeader' &&
         <li>

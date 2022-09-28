@@ -7,10 +7,11 @@ import TaskDetailed from './TaskDetailed';
 import { TaskCreateForm } from './TaskCreateForm';
 import AssignTask from './AssignTask';
 import { useAppSelector } from '../app/hooks';
+import { CreateReportForm } from './CreateReportForm';
 
 export default function Tasks () {
   const [tasks, setTasks] = useState([]);
-  const { token } = useAppSelector((state) => state.user);
+  const { token, role } = useAppSelector((state) => state.user);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
@@ -18,6 +19,7 @@ export default function Tasks () {
   const [activeTask, setActiveTask] = useState({});
   const [showAssignTask, setShowAssignTask] = useState(false);
   const [showCreateTaskForm, setShowCreateTaskForm] = useState(false);
+  const [showCreateReportForm, setShowCreateReportForm] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,10 +36,10 @@ export default function Tasks () {
         },
       })
       .then((res) => {
-        if (res.status == 401) {
+        if (res.status === 401) {
           navigate('../login');
         }
-        if (res.status == 403) {
+        if (res.status === 403) {
           throw new Error('You are not allowed to access this data');
         }
         return res.json();
@@ -59,6 +61,7 @@ export default function Tasks () {
   ])
 
   useEffect(() => {
+    if(role === 'OrganizationLeader')
     fetch(`${process.env.REACT_APP_SERVER_URL}/users`, {
       method: 'GET',
       credentials: 'include',
@@ -100,9 +103,9 @@ export default function Tasks () {
         <h1>Tasks</h1>
         <div className='search-and-create'>
           <input type='search' onChange={(e) => changeFilter(e)}/>
-          <input type='submit' value='Create new' onClick={() => setShowCreateTaskForm(true)}></input>
+          {role === 'OrganizationLeader' && <input type='submit' value='Create new' onClick={() => setShowCreateTaskForm(true)}></input>}
         </div>
-        {tasks === [] ?
+        {tasks.length === 0 ?
         <p>No tasks have been created yet</p>
         : 
         <ul className='task-list'>
@@ -137,6 +140,7 @@ export default function Tasks () {
       token={token}
       setParentLoaded={setLoaded}
       setActiveTask={setActiveTask}
+      setShowCreateReportForm={setShowCreateReportForm}
       />
       <TaskCreateForm
       setLoaded={setLoaded}
@@ -152,6 +156,13 @@ export default function Tasks () {
       users={users}
       setUsers={setUsers}
       setParentLoaded={setLoaded}
+      setActiveTask={setActiveTask}
+      />
+      <CreateReportForm 
+      showCreateReportForm={showCreateReportForm}
+      setShowCreateReportForm={setShowCreateReportForm}
+      task={activeTask}
+      token={token}
       setActiveTask={setActiveTask}
       />
     </div>

@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMapEvent } from 'react-leaflet';
+import { useAppSelector } from "../app/hooks";
 import '../styles/TaskDetailed.css';
 
 function UpdateMap({ location }: any) {
@@ -17,10 +18,13 @@ function UpdateMap({ location }: any) {
 export default function TaskDetailed({
   task,
   setShowAssignTask,
+  setShowCreateReportForm,
   token,
   setParentLoaded,
   setActiveTask,
 }: any) {
+
+  const { role } = useAppSelector((state) => state.user);
   useEffect(() => {
     document.getElementById('map123map')?.click();
   }, [task]);
@@ -57,14 +61,16 @@ export default function TaskDetailed({
         <p>{task['description']}</p>
       </section>
       <div className='breakline'></div>
-      <p className='assigned-to'>
-        The task is assigned to 
-        {task['assignedTo'] ?` ${task['assignedTo']['firstName']}` : ' nobody'}
-      </p>
-      {/* The assign task to a person button should be implemented here*/}
-      {!task['assignedTo'] &&
-        <button className='assign-btn' onClick={(e) => setShowAssignTask(true)}>Assign the task</button>
-      }
+     {role === 'OrganizationLeader' && <div>
+        <p className='assigned-to'>
+          The task is assigned to 
+          {task['assignedTo'] ?` ${task['assignedTo']['firstName']}` : ' nobody'}
+        </p>
+        {/* The assign task to a person button should be implemented here*/}
+        {!task['assignedTo'] &&
+          <button className='assign-btn' onClick={(e) => setShowAssignTask(true)}>Assign the task</button>
+        }
+      </div>}
       <div className='map-selector'>
         <MapContainer id='map123map' center={[task['location'][0], task['location'][1]]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
@@ -79,7 +85,8 @@ export default function TaskDetailed({
             <UpdateMap location={[task['location'][0], task['location'][1]]} />
         </MapContainer>
       </div>
-      <button className='delete-btn' onClick={() => deleteTask(task['_id'])}>Delete</button>
+      {role === 'OrganizationLeader' && <button className='delete-btn' onClick={() => deleteTask(task['_id'])}>Delete</button>}
+      {!task.done && <button className='assign-btn' onClick={() => setShowCreateReportForm(true)}>Finish and create report</button>}
     </div>
   )
 } 
