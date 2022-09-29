@@ -2,6 +2,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import CloseIcon from '../images/icons/close_FILL0_wght400_GRAD0_opsz48.png';
 import LoadingSpinner from './LoadingSpinnner';
+import '../styles/CreateReportForm.css';
 
 export const CreateReportForm = ({ token, task, showCreateReportForm, setShowCreateReportForm, setActiveTask }: any) => {
   const [text, setText] = useState('');
@@ -51,20 +52,22 @@ export const CreateReportForm = ({ token, task, showCreateReportForm, setShowCre
     return null;
   }
   return ReactDOM.createPortal(
+    <div className='report-form-wrapper'>
     <div className='report-form-container'>
       <div className='controls'>
         <h2>Create report</h2>
         <button className='close-form-btn' onClick={() => setShowCreateReportForm(false)}>
             <img src={CloseIcon} alt='Close icon' />
         </button>
+      </div>
         {loading ? 
         <LoadingSpinner />
         :
         <form className='report-form' onSubmit={(e) => onSubmit(e)}>
           <label htmlFor='text'>
-            <textarea onChange={(e) => setText(e.target.value)} value={text}></textarea>
+            <textarea rows={16} onChange={(e) => setText(e.target.value)} value={text}></textarea>
           </label>
-          <button type='submit'>Create</button>
+          <button className='assign-btn' type='submit'>Create</button>
         </form>}
       </div>
     </div>,
