@@ -1,0 +1,43 @@
+.reports-container {
+  display: flex;
+  width: 100%;
+  max-height: 100%;
+}
+
+.reports > h1 {
+  margin-top: 6rem;
+  margin-left: 2rem;
+}
+
+.reports {
+  width: 30%;
+  height: 100%;
+}
+
+.reports-list {
+  display: flex;
+  height: 83%;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.reports-list > ul {
+  padding-left: 0;
+}
+
+.individual-report {
+  height: 150px;
+  padding-left: 2rem;
+  border: 1px solid rgba(235, 235, 235, 0.9);
+  border-right: none;
+  border-left: none;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.report-detailed {
+  width: 70%;
+  padding-top: 4.5em;
+  padding-left: 2em;
+  padding-right: 6em;
+}

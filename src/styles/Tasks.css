@@ -27,6 +27,7 @@
 
 .search-and-create > input[type=submit] {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .assign-btn {

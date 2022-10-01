@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 import { Link, NavLink } from "react-router-dom";
 import MainIcon from '../images/icons/home_FILL0_wght400_GRAD0_opsz48.png';
-import TasksIcon from '../images/icons/task_FILL0_wght400_GRAD0_opsz48.png';
+import ReportsIcon from '../images/icons/task_FILL0_wght400_GRAD0_opsz48.png';
 import MembersIcon from '../images/icons/person_FILL0_wght400_GRAD0_opsz48.png';
+import TasksIcon from '../images/icons/description_FILL0_wght400_GRAD0_opsz48.png';
 import MapIcon from '../images/icons/pin_drop_FILL0_wght400_GRAD0_opsz48.png';
 import LogoutIcon from '../images/icons/logout_FILL0_wght400_GRAD0_opsz48.png';
 import '../styles/Navbar.css';
@@ -59,6 +60,12 @@ export default function Navbar(props: any) {
         <img src={TasksIcon} alt='Tasks icon' />
           <NavLink to='./tasks'>{ role === 'Caretaker' ? 'Your tasks' : 'Tasks' }</NavLink>
         </li>
+        { role === 'OrganizationLeader' &&
+        <li>
+           <img src={ReportsIcon} alt='Reports icon' />
+           <NavLink to='./reports'>Reports</NavLink>
+         </li>
+        }
         {/* {role === 'OrganizationLeader' &&
         <li>
           <img src={MembersIcon} alt='Members icon' />

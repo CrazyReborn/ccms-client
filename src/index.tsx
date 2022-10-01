@@ -13,6 +13,7 @@ import Logout from './components/Logout';
 import Tasks from './components/Tasks';
 import MapComponent from './components/MapComponent';
 import { PersistGate } from 'redux-persist/integration/react';
+import Reports from './components/Reports';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -26,6 +27,7 @@ root.render(
             <Route path='' element={<Main />} />
             <Route path='map' element={<MapComponent />} />
             <Route path='tasks' element={<Tasks />} />
+            <Route path='reports' element={<Reports />} />
           </Route>
           <Route path='login' element={<Login />} />
           <Route path='signup' element={<SignUp />} />
