@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Circle, MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
@@ -11,30 +11,33 @@ export default function Map() {
   const navigate = useNavigate();
   const { token } = useAppSelector((state) => state.user);
 
-  if(!loaded) {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/colonies`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-    .then((res) => {
-      if (res.status === 401) {
-        return navigate('../login')
-      }
-      if (res.status === 403) {
-        return console.log('You cant access this data')
-      }
-      return res.json()
-    })
-    .then((data) => {
-      setColonies(data);
-      createSectors(data);
-    })
-    .catch((err) => console.log(err))
-    .finally(() => setLoaded(true));
-  }
+  useEffect(() => {
+    if(!loaded) {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/colonies`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      .then((res) => {
+        if (res.status === 401) {
+          return navigate('../login')
+        }
+        if (res.status === 403) {
+          throw new Error('You can\'t access this data');
+        }
+        return res.json()
+      })
+      .then((data) => {
+        setColonies(data);
+        createSectors(data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoaded(true));
+    }
+  }, [loaded]);
+
 
   function createSectors(data: any[]) {
     const sectors: any[] = [];

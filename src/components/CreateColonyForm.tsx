@@ -56,11 +56,10 @@ export default function CreateColonyForm(props: any) {
 
   function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    if(location[0] == 0 || location[1] == 1) {
+    if(location[0] === 0 || location[1] === 1) {
       throw new Error('Wrong location');
     }
     sendForm();
-    setParentLoaded(false);
   }
 
   function sendForm() {
@@ -81,13 +80,14 @@ export default function CreateColonyForm(props: any) {
       body: JSON.stringify(body),
     })
     .then((res) => {
+      console.log(res.status)
       return res.json();
     })
-    .then(() => {
+    .catch((err) => console.log(err))
+    .finally(() => {
       setShowCreateColonyForm(false);
       setParentLoaded(false);
     })
-    .catch((err) => console.log(err));
   }
   
   function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {

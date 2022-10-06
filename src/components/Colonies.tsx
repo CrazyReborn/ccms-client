@@ -43,6 +43,7 @@ export default function Colonies ({
         return res.json()
       })
       .then((data) => {
+        console.log(data);
         setColonies(data);
         createSectors(data);
       })

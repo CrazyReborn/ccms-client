@@ -17,7 +17,10 @@ export default function MapComponent() {
   const [activeSector, setActiveSector] = useState({} as any);
 
   useEffect(() => {
-    document.getElementById('map123map')?.click();
+    if(sectors.length > 0) {
+      document.getElementById('map123map')?.click();
+    }
+    
   }, [sectorsLoaded, activeSector]);
   
   return (
