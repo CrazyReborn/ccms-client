@@ -128,7 +128,13 @@ export default function Colonies ({
       updateColony={updateColony}
       setUpdateColony={setUpdateColony}
       />
-      <CatDetailed cat={activeCat} />
+      <CatDetailed 
+      cat={activeCat}
+      setActiveCat={setActiveCat}
+      updateColony={updateColony}
+      setUpdateColony={setUpdateColony}
+      colony={active}
+      />
       <CreateColonyForm
       setShowCreateColonyForm={setShowCreateColonyForm}
       showCreateColonyForm={showCreateColonyForm}
