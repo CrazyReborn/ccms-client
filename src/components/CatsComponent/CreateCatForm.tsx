@@ -61,16 +61,12 @@ export default function CreateCatForm({
       body: JSON.stringify(body),
     });
     const newCat = await catPostResult.json();
-    console.log('new cat');
-    console.log(newCat);
     if (catPostResult.status === 201) {
       const newRegisteredCats = registeredCats.slice();
       newRegisteredCats.push(newCat._id);
       const colonyBody = {
         registeredCats: newRegisteredCats,
       }
-      console.log('new registered cats');
-    console.log(newRegisteredCats);
       const colonyUpdateResult = await fetch(`${process.env.REACT_APP_SERVER_URL}/colonies/${colonyId}`, {
         method: 'PATCH',
         headers: {
@@ -79,7 +75,6 @@ export default function CreateCatForm({
         },
         body: JSON.stringify(colonyBody),
       })
-      console.log(colonyUpdateResult.json());
       if (colonyUpdateResult.status === 200) {
         await setUpdateColony(!updateColony);
         setShowCreateCatForm(false);

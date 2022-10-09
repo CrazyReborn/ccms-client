@@ -80,7 +80,6 @@ export default function CreateColonyForm(props: any) {
       body: JSON.stringify(body),
     })
     .then((res) => {
-      console.log(res.status)
       return res.json();
     })
     .catch((err) => console.log(err))

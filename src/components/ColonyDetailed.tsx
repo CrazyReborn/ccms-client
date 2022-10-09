@@ -14,7 +14,6 @@ export default function ColonyDetailed({
   useEffect(() => {
   }, [colony])
   useEffect(() => {
-    console.log('updating detailed vbiew'); 
     fetch(`${process.env.REACT_APP_SERVER_URL}/colonies/${colony._id}`, {
       method: 'GET',
       credentials: 'include',
@@ -83,7 +82,7 @@ export default function ColonyDetailed({
       colonyId={colony._id}
       registeredCats={colony.registeredCats}
       />
-      <button onClick={() => setShowCreateCatForm(true)}>Add a cat</button>
+      <button className='sml-act' onClick={() => setShowCreateCatForm(true)}>Add a cat</button>
     </div>
   )
 } 

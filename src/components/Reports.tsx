@@ -29,7 +29,6 @@ export default function Reports() {
       return res.json();
     })
     .then((data) => {
-      console.log(data)
       setReports(data)
     })
     .finally(() => setLoaded(true))

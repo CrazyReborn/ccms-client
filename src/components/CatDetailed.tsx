@@ -59,7 +59,7 @@ export default function CatDetailed({
       <p>This cat has several disctinct features: {cat['features'].map((feature: any) => `${feature}`)}</p>
       }
       <p>The cat is {cat['vaccinated']? '' : 'not'} vaccinated, {cat['sterilized']? '' : 'not'} sterilized.</p>
-      <button onClick={() => deleteCat(cat._id)}>Delete</button>
+      <button className='sml-dlt' onClick={() => deleteCat(cat._id)}>Delete</button>
     </div>
   )
 }

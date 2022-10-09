@@ -116,3 +116,21 @@
   margin-left: 1rem;
   margin-right: auto;
 }
+
+.sml-act {
+  border: none;
+  background-color: blue;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 2em;
+  font-size: 18px;
+}
+
+.sml-dlt {
+  border: none;
+  background-color: red;
+  color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 2em;
+  font-size: 18px;
+}
