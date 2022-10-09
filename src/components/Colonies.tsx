@@ -21,6 +21,7 @@ export default function Colonies ({
   const [active, setActive] =  useState({});
   const [activeCat, setActiveCat] = useState({});
   const [showCreateColonyForm, setShowCreateColonyForm] = useState(false);
+  const [updateColony, setUpdateColony] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -120,7 +121,13 @@ export default function Colonies ({
         </ul>
         }
       </div>
-      <ColonyDetailed colony={active} setActiveCat={setActiveCat}/>
+      <ColonyDetailed
+      colony={active}
+      setActive={setActive}
+      setActiveCat={setActiveCat}
+      updateColony={updateColony}
+      setUpdateColony={setUpdateColony}
+      />
       <CatDetailed cat={activeCat} />
       <CreateColonyForm
       setShowCreateColonyForm={setShowCreateColonyForm}

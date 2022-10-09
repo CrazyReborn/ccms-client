@@ -1,0 +1,39 @@
+.create-cat-form-container {
+  position: absolute;
+  background-color: rgba(0, 25, 253, 0.274);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-cat-form {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  min-width: 30%;
+  height: max-content;
+  z-index: 1000;
+  background-color: white;
+}
+
+.create-cat-form > .controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-cat-form > input[type='submit'] {
+  margin-top: 1em;
+}
+
+.create-cat-form > label > textarea {
+  font-size: smaller;
+}
+
+.label-checkbox {
+  display: flex;
+  flex-direction: row;
+}

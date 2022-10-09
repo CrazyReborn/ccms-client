@@ -1,8 +1,39 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useAppSelector } from "../app/hooks";
+import CreateCatForm from "./CatsComponent/CreateCatForm"
 
-export default function ColonyDetailed({ colony, setActiveCat }: any) {
+export default function ColonyDetailed({
+  colony,
+  setActive,
+  setActiveCat,
+  updateColony,
+  setUpdateColony
+}: any) {
+  const [showCreateCatForm, setShowCreateCatForm] = useState(false);
+  const { token } = useAppSelector((state) => state.user);
   useEffect(() => {
   }, [colony])
+  useEffect(() => {
+    console.log('updating detailed vbiew'); 
+    fetch(`${process.env.REACT_APP_SERVER_URL}/colonies/${colony._id}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        return res.json()
+      }
+      throw new Error('There was an error'.concat(res.status.toString()));
+    })
+    .then((data) => {
+      setActive(data);
+    })
+    .catch((err) => console.log(err));
+  }, [updateColony])
   if (colony['name'] === undefined) {
     return (
       <div className='colony-detailed'>
@@ -24,10 +55,10 @@ export default function ColonyDetailed({ colony, setActiveCat }: any) {
           })}
         </ul>
         {colony['registeredCats'].length === 0 ?
-          <p>No cats from this colony were registered</p>
+          <p>No cats from this colony have been registered</p>
           :
           <div>
-            <h3>Registered cats</h3>
+            <h3>Registered cats:</h3>
             <ul>
             {
             colony['registeredCats'].map((cat: any, index: any) => {
@@ -44,6 +75,15 @@ export default function ColonyDetailed({ colony, setActiveCat }: any) {
           </div>
         }
       </section>
+      <CreateCatForm
+      showCreateCatForm={showCreateCatForm}
+      setShowCreateCatForm={setShowCreateCatForm}
+      updateColony={updateColony}
+      setUpdateColony={setUpdateColony}
+      colonyId={colony._id}
+      registeredCats={colony.registeredCats}
+      />
+      <button onClick={() => setShowCreateCatForm(true)}>Add a cat</button>
     </div>
   )
 } 
